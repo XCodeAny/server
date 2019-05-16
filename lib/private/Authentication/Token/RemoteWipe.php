@@ -136,9 +136,10 @@ class RemoteWipe {
 
 	private function sendNotification(string $event, IToken $token): void {
 		$notification = $this->notificationManager->createNotification();
-		$notification->setApp('core')
+		$notification->setApp('auth')
 			->setUser($token->getUID())
 			->setDateTime($this->timeFactory->getDateTime())
+			->setObject('token', $token->getId())
 			->setSubject($event, [
 				'name' => $token->getName(),
 			]);

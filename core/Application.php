@@ -68,11 +68,11 @@ class Application extends App {
 			];
 		});
 		$notificationManager->registerNotifier(function() use ($server) {
-			$server->query(AuthenticationNotifier::class);
+			return $server->query(AuthenticationNotifier::class);
 		}, function() {
 			return [
-				'id' => 'core',
-				'name' => 'core',
+				'id' => 'auth',
+				'name' => 'authentication notifier',
 			];
 		});
 

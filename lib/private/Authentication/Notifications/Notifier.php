@@ -40,13 +40,13 @@ class Notifier implements INotifier {
 	}
 
 	public function prepare(INotification $notification, $languageCode) {
-		if ($notification->getApp() !== 'core') {
+		if ($notification->getApp() !== 'auth') {
 			// Not my app => throw
 			throw new InvalidArgumentException();
 		}
 
 		// Read the language from the notification
-		$l = $this->factory->get('core', $languageCode);
+		$l = $this->factory->get('lib', $languageCode);
 
 		switch ($notification->getSubject()) {
 			case 'remote_wipe_start':
