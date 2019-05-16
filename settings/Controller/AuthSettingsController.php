@@ -30,6 +30,7 @@ namespace OC\Settings\Controller;
 use BadMethodCallException;
 use OC\Authentication\Exceptions\InvalidTokenException;
 use OC\Authentication\Exceptions\PasswordlessTokenException;
+use OC\Authentication\Exceptions\WipeTokenException;
 use OC\Authentication\Token\INamedToken;
 use OC\Authentication\Token\IProvider;
 use OC\Authentication\Token\IToken;
@@ -168,6 +169,9 @@ class AuthSettingsController extends Controller {
 	public function destroy($id) {
 		try {
 			$token = $this->findTokenByIdAndUser($id);
+		} catch (WipeTokenException $e) {
+			//continue as we can destroy tokens in wipe
+			$token = $e->getToken();
 		} catch (InvalidTokenException $e) {
 			return new JSONResponse([], Http::STATUS_NOT_FOUND);
 		}

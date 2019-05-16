@@ -146,6 +146,8 @@ class Manager implements IProvider {
 			return $this->publicKeyTokenProvider->getTokenById($tokenId);
 		} catch (ExpiredTokenException $e) {
 			throw $e;
+		} catch (WipeTokenException $e) {
+			throw $e;
 		} catch (InvalidTokenException $e) {
 			return $this->defaultTokenProvider->getTokenById($tokenId);
 		}
